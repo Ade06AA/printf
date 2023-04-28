@@ -18,4 +18,5 @@ int _print_o(unsigned int);
 int _print_b(int);
 int _print_X(unsigned int);
 int _print_x(unsigned int);
+int _print_S(char *s);
 #endif
