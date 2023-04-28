@@ -9,3 +9,11 @@ format is a character string. The format string is composed of zero or more dire
 c
 s
 %
+d
+i
+b
+u
+o
+x
+X
+
