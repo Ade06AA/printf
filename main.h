@@ -1,5 +1,5 @@
-#ifndef H_FILE
-#define H_FILE
+#ifndef MAIN_H_FILE
+#define MAIN_H_FILE
 /*standard header file*/
 #include <stddef.h>
 #include <unistd.h>
