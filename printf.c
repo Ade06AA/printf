@@ -11,17 +11,19 @@ int _printf(const char *sp, ...)
 	int i, n = 0;
 	char ss;
 	va_list l;
+	char *va;
 
-	if (sp == 0 || sp == '\0')
+	if (sp == 0 || *sp == '\0')
 		return (-1);
 	va_start(l, sp);
 	for (i = 0; sp[i] != '\0'; i++)
 	{
 		ss = sp[i + 1];
-		if (sp[i] != '%')
+		if (sp[i] != '%' || ss == '%')
 		{
 			n++;
-			_putchar(sp[i]);
+			(sp[i] != '%') ? sp += 0 : sp++;
+			(sp[i] != '%') ? _putchar(sp[i]) : _putchar('%');
 		}
 		else if (ss == 'o' || ss == 'u' || ss == 'x' || ss == 'X')
 		{
@@ -35,7 +37,8 @@ int _printf(const char *sp, ...)
 		}
 		else
 		{
-			n += (ss == '%') ? _putchar('%') : _print_s(va_arg(l, char *));
+			va = (va_arg(l, char *));
+			n += (ss == 'S') ? _print_S(va) : _print_s(va);
 			sp++;
 		}
 	}
