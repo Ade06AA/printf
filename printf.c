@@ -13,7 +13,7 @@ int _printf(const char *sp, ...)
 	va_list l;
 	char *va;
 
-	if (sp == 0 || *sp == '\0')
+	if (sp == 0 || ((*sp == '%') && *(sp + 1) == '\0'))
 		return (-1);
 	va_start(l, sp);
 	for (i = 0; sp[i] != '\0'; i++)
@@ -24,26 +24,39 @@ int _printf(const char *sp, ...)
 			n++;
 			(sp[i] != '%') ? sp += 0 : sp++;
 			(sp[i] != '%') ? _putchar(sp[i]) : _putchar('%');
+			continue;
 		}
 		else if (ss == 'o' || ss == 'u' || ss == 'x' || ss == 'X')
 		{
-			n += _ui(ss, n, va_arg(l, unsigned int));
-			sp++;
+			n = _ui(ss, n, va_arg(l, unsigned int));
 		}
 		else if (ss == 'i' || ss == 'b' || ss == 'c' || ss == 'd' || ss == 'u')
 		{
-			n += fswitch(ss, n, va_arg(l, int));
-			sp++;
+			n = fswitch(ss, n, va_arg(l, int));
 		}
-		else
+		else if (ss == 'S' || ss == 's')
 		{
 			va = (va_arg(l, char *));
 			n += (ss == 'S') ? _print_S(va) : _print_s(va);
-			sp++;
 		}
+		else
+			n += _default(sp + i);
+		sp++;
 	}
 	va_end(l);
 	return (n);
+}
+/**
+* _default - func name
+ * give instruction on what to do if a format type is not suported
+* @sp: func arg 1
+* Return: 2 as lengt
+*/
+int _default(const char *sp)
+{
+	_putchar(*sp);
+	_putchar(*(sp + 1));
+	return (2);
 }
 /**
 * fswitch - func name
@@ -63,7 +76,7 @@ int fswitch(char sp, int n, int va)
 			n += _print_d(va);
 			break;
 		case 'c':
-			n++;
+			n += 1;
 			_putchar((char) va);
 			break;
 		case 'b':

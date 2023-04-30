@@ -15,12 +15,12 @@ int _print_S(char *s)
 		k++;
 		if ((s[i] > 0 && s[i] < 32) || s[i] >= 127)
 		{
-			k+=1;
+			k += 1;
 			_putchar('\\');
 			_putchar('x');
 			if (s[i] < 16)
 				_putchar('0');
-			k+=_print_X(s[i]);
+			k += _print_X(s[i]);
 		}
 		else
 			_putchar(s[i]);
