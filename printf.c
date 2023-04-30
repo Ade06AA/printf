@@ -67,6 +67,8 @@ int _default(const char *sp)
 */
 int fswitch(char sp, int n, int va)
 {
+	if (va < 0)
+		n++;
 	switch (sp)
 	{
 		case 'i':
